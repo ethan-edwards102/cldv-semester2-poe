@@ -4,22 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ABCRetails.Controllers
 {
-    public class CustomerController : Controller
+    public class ProductController : Controller
     {
         private readonly TableService _ts;
 
-        public CustomerController(TableService ts)
+        public ProductController(TableService ts)
         {
             _ts = ts;
         }
         
-        // GET: Customers
+        // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _ts.ToListAsync<Customer>("customers"));
+            return View(await _ts.ToListAsync<Product>("products"));
         }
         
-        // GET: Customers/Details
+        // GET: Products/Details
         public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
@@ -27,43 +27,43 @@ namespace ABCRetails.Controllers
                 return NotFound();
             }
 
-            var customer = await _ts.GetEntityAsync<Customer>("customers", "CUSTOMER", id);
+            var product = await _ts.GetEntityAsync<Product>("products", "PRODUCT", id);
             
-            if (customer == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(product);
         }
         
-        // GET: Customers/Create
+        // GET: Products/Create
         public IActionResult Create()
         {
             return View();
         }
         
-        // POST: Customers/Create
+        // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create
         (
-            [Bind("CustomerName, EmailAddress, PhoneNumber, DeliveryAddress")]
-            Customer customer
+            [Bind("ProductName, Price, Description, PhotoURL")]
+            Product product
         )
         {
             if (ModelState.IsValid)
             {
-                await _ts.InsertEntityAsync("customers", customer);
+                await _ts.InsertEntityAsync("products", product);
                 return RedirectToAction(nameof(Index));
             }
             
-            return View(customer);
+            return View(product);
         }
         
-        // GET: Customer/Edit/
+        // GET: Products/Edit/
         public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
@@ -71,17 +71,17 @@ namespace ABCRetails.Controllers
                 return NotFound();
             }
 
-            var customer = await _ts.GetEntityAsync<Customer>("customers", "CUSTOMER", id);
+            var product = await _ts.GetEntityAsync<Product>("products", "PRODUCT", id);
 
-            if (customer == null)
+            if (product == null)
             {
                 return NotFound();
             }
             
-            return View(customer);
+            return View(product);
         }
 
-        // POST: Customer/Edit/
+        // POST: Products/Edit/
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -90,11 +90,11 @@ namespace ABCRetails.Controllers
         (
             string id,
             
-            [Bind("RowKey, PartitionKey, ETag, Timestamp, CustomerName, EmailAddress, PhoneNumber, DeliveryAddress")]
-            Customer customer
+            [Bind("RowKey, PartitionKey, ETag, Timestamp, ProductName, Price, Description, PhotoURL")]
+            Product product
         )
         {
-            if (id != customer.RowKey)
+            if (id != product.RowKey)
             {
                 return NotFound();
             }
@@ -103,11 +103,11 @@ namespace ABCRetails.Controllers
             {
                 try
                 {
-                    await _ts.UpdateEntityAsync<Customer>("customers", customer);
+                    await _ts.UpdateEntityAsync<Product>("products", product);
                 }
                 catch (Exception e)
                 {
-                    if (await _ts.GetEntityAsync<Customer>("customers", "CUSTOMER", id) == null)
+                    if (await _ts.GetEntityAsync<Product>("products", "PRODUCT", id) == null)
                     {
                         return NotFound();
                     }
@@ -120,10 +120,10 @@ namespace ABCRetails.Controllers
                 return RedirectToAction(nameof(Index));
             }
             
-            return View(customer);
+            return View(product);
         }
         
-        // GET: Customers/Delete/
+        // GET: Products/Delete/
         public async Task<IActionResult> Delete(string? id)
         {
             if (id == null)
@@ -131,26 +131,26 @@ namespace ABCRetails.Controllers
                 return NotFound();
             }
 
-            var customer = await _ts.GetEntityAsync<Customer>("customers", "CUSTOMER", id);
+            var product = await _ts.GetEntityAsync<Product>("products", "PRODUCT", id);
             
-            if (customer == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(product);
         }
 
-        // POST: Customers/Delete/
+        // POST: Products/Delete/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var customer = await _ts.GetEntityAsync<Customer>("customers", "CUSTOMER", id);
+            var product = await _ts.GetEntityAsync<Product>("products", "PRODUCT", id);
             
-            if (customer != null)
+            if (product != null)
             {
-                await _ts.RemoveEntityAsync("customers", "CUSTOMER", id);
+                await _ts.RemoveEntityAsync("products", "PRODUCT", id);
             }
             
             return RedirectToAction(nameof(Index));

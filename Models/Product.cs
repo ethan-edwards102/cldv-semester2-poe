@@ -16,6 +16,5 @@ public class Product: ITableEntity
     [Required] public string ProductName { get; set; }
     [Required] public decimal Price { get; set; }
     [Required] public string Description { get; set; }
-    
-    public string ProductPhotoURL { get; set; }
+    [Required] public string PhotoURL { get; set; }
 }

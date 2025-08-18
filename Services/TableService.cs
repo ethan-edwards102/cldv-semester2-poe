@@ -15,7 +15,7 @@ public class TableService
         _ts = new TableServiceClient(connectionString);
     }
 
-    public async Task<T?> GetEntity<T>(string table, string partKey, string rowKey) where T : class, ITableEntity
+    public async Task<T?> GetEntityAsync<T>(string table, string partKey, string rowKey) where T : class, ITableEntity
     {
         try
         {
@@ -30,12 +30,23 @@ public class TableService
             return null;
         }
     }
-
-    public async Task AddAsync(string table, ITableEntity entity)
+    
+    public async Task UpdateEntityAsync<T>(string table, T entity) where T : class, ITableEntity
     {
         var tableClient = _ts.GetTableClient(table);
-        
+        await tableClient.UpdateEntityAsync(entity, ETag.All, TableUpdateMode.Replace);
+    }
+
+    public async Task InsertEntityAsync(string table, ITableEntity entity)
+    {
+        var tableClient = _ts.GetTableClient(table);
         await tableClient.UpsertEntityAsync(entity);
+    }
+    
+    public async Task RemoveEntityAsync(string table, string partKey, string rowKey)
+    {
+        var tableClient = _ts.GetTableClient(table);
+        await tableClient.DeleteEntityAsync(partKey, rowKey);
     }
 
     public async Task<List<T>> ToListAsync<T>(string table) where T : class, ITableEntity
