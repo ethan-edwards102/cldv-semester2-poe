@@ -1,6 +1,4 @@
-﻿using Azure;
-
-namespace ABCRetails.Models;
+﻿namespace ABCRetails.Models;
 
 public class CreateOrderViewModel
 {

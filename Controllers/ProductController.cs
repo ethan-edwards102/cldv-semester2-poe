@@ -7,10 +7,12 @@ namespace ABCRetails.Controllers
     public class ProductController : Controller
     {
         private readonly TableService _ts;
+        private readonly BlobService _bs;
 
-        public ProductController(TableService ts)
+        public ProductController(TableService ts, BlobService bs)
         {
             _ts = ts;
+            _bs = bs;
         }
         
         // GET: Products
@@ -50,17 +52,26 @@ namespace ABCRetails.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create
         (
-            [Bind("ProductName, Price, Description, PhotoURL")]
-            Product product
+            [Bind("ProductName, Price, Description, ImageFile")]
+            CreateProductViewModel viewModel
         )
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && viewModel.ImageFile.Length > 0)
             {
+                var photoURL = await _bs.UploadFileAsync(viewModel.ImageFile);
+
+                var product = new Product();
+
+                product.ProductName = viewModel.ProductName;
+                product.Price = viewModel.Price;
+                product.PhotoURL = photoURL;
+                product.Description = viewModel.Description;
+
                 await _ts.InsertEntityAsync("products", product);
                 return RedirectToAction(nameof(Index));
             }
             
-            return View(product);
+            return View(viewModel);
         }
         
         // GET: Products/Edit/

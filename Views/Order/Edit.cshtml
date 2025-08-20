@@ -25,13 +25,19 @@
             <input type="hidden" asp-for="TotalPrice" />
             
             <div class="form-group">
-                <label asp-for="ProductRowKey" class="control-label"></label>
+                <label asp-for="ProductRowKey" class="control-label"></label><br/>
+                <label class="control-label">
+                    Current: @Html.DisplayFor(model => model.ProductName)
+                </label>
                 <select asp-for="ProductRowKey" class="form-select" asp-items="ViewBag.ProductRowKey"></select>
                 <span asp-validation-for="ProductRowKey" class="text-danger"></span>
             </div>
             
             <div class="form-group">
-                <label asp-for="CustomerRowKey" class="control-label"></label>
+                <label asp-for="CustomerRowKey" class="control-label"></label><br/>
+                <label class="control-label">
+                    Current: @Html.DisplayFor(model => model.CustomerName)
+                </label>
                 <select asp-for="CustomerRowKey" class="form-select" asp-items="ViewBag.CustomerRowKey"></select>
                 <span asp-validation-for="CustomerRowKey" class="text-danger"></span>
             </div>
