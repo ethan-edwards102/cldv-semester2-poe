@@ -2,7 +2,7 @@
 
 namespace ABCRetails.Models;
 
-public class OrderViewModel
+public class CreateOrderViewModel
 {
     public string CustomerRowKey { get; set; }
     public string ProductRowKey { get; set; }

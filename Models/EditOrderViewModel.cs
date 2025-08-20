@@ -23,18 +23,4 @@ public class EditOrderViewModel
     
     public int Quantity { get; set; }
     public decimal TotalPrice { get; set; }
-
-    public EditOrderViewModel(Order order)
-    {
-        PartitionKey = order.PartitionKey;
-        RowKey = order.RowKey;
-        Timestamp = order.Timestamp;
-        ETag = order.ETag;
-        ProductName = order.ProductName;
-        PhotoURL = order.PhotoURL;
-        CustomerName = order.CustomerName;
-        DeliveryAddress = order.DeliveryAddress;
-        Quantity = order.Quantity;
-        TotalPrice = order.TotalPrice;
-    }
 }
