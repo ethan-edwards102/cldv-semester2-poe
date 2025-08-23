@@ -1,4 +1,5 @@
-﻿using Azure;
+﻿using System.ComponentModel.DataAnnotations;
+using Azure;
 
 namespace ABCRetails.Models;
 
@@ -13,14 +14,20 @@ public class EditOrderViewModel
 
     // When editing, product and customer details
     // can either be kept the same or changed
+    [Display(Name = "Product")]
     public string? ProductRowKey { get; set; }
-    public string? ProductName { get; set; }
-    public string? PhotoURL { get; set; }
-
-    public string? CustomerRowKey { get; set; }
-    public string? CustomerName { get; set; }
-    public string? DeliveryAddress { get; set; }
     
+    public string ProductName { get; set; }
+    public string PhotoURL { get; set; }
+
+    [Display(Name = "Customer")]
+    public string? CustomerRowKey { get; set; }
+    
+    public string CustomerName { get; set; }
+    public string DeliveryAddress { get; set; }
+    
+    [Required] [Display(Name = "Quantity")]
     public int Quantity { get; set; }
+    
     public double TotalPrice { get; set; }
 }

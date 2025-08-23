@@ -1,61 +1,60 @@
 @model ABCRetails.Models.EditOrderViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Order";
 }
 
-<h1>Edit</h1>
-
-<h4>Customer</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <input type="hidden" asp-for="RowKey" />
-            <input type="hidden" asp-for="PartitionKey" />
-            <input type="hidden" asp-for="Timestamp" />
-            <input type="hidden" asp-for="ETag" />
-            
-            <input type="hidden" asp-for="ProductName" />
-            <input type="hidden" asp-for="PhotoURL" />
-            <input type="hidden" asp-for="CustomerName" />
-            <input type="hidden" asp-for="DeliveryAddress" />
-            <input type="hidden" asp-for="TotalPrice" />
-            
-            <div class="form-group">
-                <label asp-for="ProductRowKey" class="control-label"></label><br/>
-                <label class="control-label">
-                    Current: @Html.DisplayFor(model => model.ProductName)
-                </label>
-                <select asp-for="ProductRowKey" class="form-select" asp-items="ViewBag.ProductRowKey"></select>
-                <span asp-validation-for="ProductRowKey" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="CustomerRowKey" class="control-label"></label><br/>
-                <label class="control-label">
-                    Current: @Html.DisplayFor(model => model.CustomerName)
-                </label>
-                <select asp-for="CustomerRowKey" class="form-select" asp-items="ViewBag.CustomerRowKey"></select>
-                <span asp-validation-for="CustomerRowKey" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" type="number" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="border rounded-3 overflow-hidden p-3" style="margin: 0 auto;">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Edit Order</h1>
+        <a class="btn btn-primary" asp-action="Index">🡐 Back</a>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                <input type="hidden" asp-for="RowKey" />
+                <input type="hidden" asp-for="PartitionKey" />
+                <input type="hidden" asp-for="Timestamp" />
+                <input type="hidden" asp-for="ETag" />
+                    
+                <input type="hidden" asp-for="ProductName" />
+                <input type="hidden" asp-for="PhotoURL" />
+                <input type="hidden" asp-for="CustomerName" />
+                <input type="hidden" asp-for="DeliveryAddress" />
+                <input type="hidden" asp-for="TotalPrice" />
+                    
+                <div class="form-group">
+                    <label asp-for="ProductRowKey" class="control-label"></label><br/>
+                    <label class="control-label">
+                        Current: @Html.DisplayFor(model => model.ProductName)
+                    </label>
+                    <select asp-for="ProductRowKey" class="form-select" asp-items="ViewBag.ProductRowKey"></select>
+                    <span asp-validation-for="ProductRowKey" class="text-danger"></span>
+                </div>
+                    
+                <div class="form-group pt-2">
+                    <label asp-for="CustomerRowKey" class="control-label"></label><br/>
+                    <label class="control-label">
+                        Current: @Html.DisplayFor(model => model.CustomerName)
+                    </label>
+                    <select asp-for="CustomerRowKey" class="form-select" asp-items="ViewBag.CustomerRowKey"></select>
+                    <span asp-validation-for="CustomerRowKey" class="text-danger"></span>
+                </div>
+                    
+                <div class="form-group pt-2">
+                    <label asp-for="Quantity" class="control-label"></label>
+                    <input asp-for="Quantity" type="number" class="form-control" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+                    
+                <div class="form-group pt-3">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 

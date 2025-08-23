@@ -149,7 +149,6 @@ namespace ABCRetails.Controllers
         {
             if (id != viewModel.RowKey)
             {
-                Console.WriteLine("FUCK THIS");
                 return NotFound();
             }
 
@@ -209,11 +208,9 @@ namespace ABCRetails.Controllers
                         order.ProductName = product.ProductName;
                         order.PhotoURL = product.PhotoURL;
                         order.TotalPrice = product.Price * viewModel.Quantity;
-                        Console.WriteLine("FUCK ME");
                     }
                     else
                     {
-                        Console.WriteLine("FUCK YOU");
                         order.ProductName = viewModel.ProductName;
                         order.PhotoURL = viewModel.PhotoURL;
                         order.TotalPrice = viewModel.Quantity;

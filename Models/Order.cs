@@ -13,12 +13,21 @@ public class Order: ITableEntity
     public DateTimeOffset? Timestamp { get; set; }
     public ETag ETag { get; set; }
     
-    [Required] public string ProductName { get; set; }
-    [Required] public string PhotoURL { get; set; }
+    [Required] [Display(Name = "Product")]
+    public string ProductName { get; set; }
     
-    [Required] public int Quantity { get; set; }
-    [Required] public double TotalPrice { get; set; }
+    [Required] [Display(Name = "Product Photo")]
+    public string PhotoURL { get; set; }
     
-    [Required] public string CustomerName { get; set; }
-    [Required] public string DeliveryAddress { get; set; }
+    [Required] [Display(Name = "Quantity")]
+    public int Quantity { get; set; }
+    
+    [Required] [Display(Name = "Total Price")]
+    public double TotalPrice { get; set; }
+    
+    [Required] [Display(Name = "Customer")]
+    public string CustomerName { get; set; }
+    
+    [Required] [Display(Name = "Delivery Address")]
+    public string DeliveryAddress { get; set; }
 }
