@@ -17,7 +17,7 @@ public class Order: ITableEntity
     [Required] public string PhotoURL { get; set; }
     
     [Required] public int Quantity { get; set; }
-    [Required] public decimal TotalPrice { get; set; }
+    [Required] public double TotalPrice { get; set; }
     
     [Required] public string CustomerName { get; set; }
     [Required] public string DeliveryAddress { get; set; }

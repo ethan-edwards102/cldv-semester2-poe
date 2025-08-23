@@ -13,8 +13,15 @@ public class Product: ITableEntity
     public DateTimeOffset? Timestamp { get; set; }
     public ETag ETag { get; set; }
     
-    [Required] public string ProductName { get; set; }
-    [Required] public decimal Price { get; set; }
-    [Required] public string Description { get; set; }
-    [Required] public string PhotoURL { get; set; }
+    [Required] [Display(Name = "Product Name")]
+    public string ProductName { get; set; }
+    
+    [Required] [Display(Name = "Price")]
+    public double Price { get; set; }
+    
+    [Required] [Display(Name = "Description")]
+    public string Description { get; set; }
+    
+    [Required] [Display(Name = "Product Photo")]
+    public string PhotoURL { get; set; }
 }

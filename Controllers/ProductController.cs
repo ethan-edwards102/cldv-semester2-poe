@@ -30,6 +30,8 @@ namespace ABCRetails.Controllers
             }
 
             var product = await _ts.GetEntityAsync<Product>("products", "PRODUCT", id);
+
+            Console.WriteLine(product.Price);
             
             if (product == null)
             {
@@ -125,6 +127,8 @@ namespace ABCRetails.Controllers
 
             if (ModelState.IsValid)
             {
+                Console.WriteLine(viewModel.Price);
+                
                 try
                 {
                     // Check if a new photo was uploaded
@@ -147,6 +151,8 @@ namespace ABCRetails.Controllers
                         Description = viewModel.Description, 
                         PhotoURL = photoUrl
                     };
+
+                    Console.WriteLine(product.Price);
                     
                     await _ts.UpdateEntityAsync<Product>("products", product);
                 }

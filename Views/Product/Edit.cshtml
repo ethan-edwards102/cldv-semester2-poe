@@ -1,59 +1,58 @@
 @model ABCRetails.Models.EditProductViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Product";
 }
 
-<h1>Edit</h1>
-
-<h4>Customer</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <input type="hidden" asp-for="RowKey" />
-            <input type="hidden" asp-for="PartitionKey" />
-            <input type="hidden" asp-for="Timestamp" />
-            <input type="hidden" asp-for="ETag" />
-            <input type="hidden" asp-for="PhotoURL" />
-            
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" type="number" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            
-            
-            <div class="form-group">
-                <label class="form-label">Current image:</label><br/>
-                <img src=@Html.DisplayFor(model => model.PhotoURL) alt="Product Photo" width="64px" height="64px"/>
-                <label asp-for="ImageFile" class="form-label">Product Photo</label>
-                <input asp-for="ImageFile" type="file" class="form-control"/>
-                <div class="invalid-feedback">Please provide a valid image.</div>
-            </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="border rounded-3 overflow-hidden p-3" style="margin: 0 auto;">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Edit Product</h1>
+        <a class="btn btn-primary" asp-action="Index">🡐 Back</a>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+                <input type="hidden" asp-for="RowKey" />
+                <input type="hidden" asp-for="PartitionKey" />
+                <input type="hidden" asp-for="Timestamp" />
+                <input type="hidden" asp-for="ETag" />
+                <input type="hidden" asp-for="PhotoURL" />
+                
+                <div class="form-group">
+                    <label asp-for="ProductName" class="control-label"></label>
+                    <input asp-for="ProductName" class="form-control" />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" type="number" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group pb-3">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                
+                
+                <div class="form-group border rounded-3 p-1">
+                    <label class="form-label">Current image:</label><br/>
+                    <img src=@Html.DisplayFor(model => model.PhotoURL) alt="Product Photo" width="64px" height="64px"/><br/>
+                    <label class="form-label">Upload new image:</label>
+                    <input asp-for="ImageFile" type="file" class="form-control"/>
+                    <div class="invalid-feedback">Please provide a valid image.</div>
+                </div>
+                
+                <div class="form-group pt-3">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 

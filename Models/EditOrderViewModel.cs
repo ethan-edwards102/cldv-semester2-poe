@@ -22,5 +22,5 @@ public class EditOrderViewModel
     public string? DeliveryAddress { get; set; }
     
     public int Quantity { get; set; }
-    public decimal TotalPrice { get; set; }
+    public double TotalPrice { get; set; }
 }
