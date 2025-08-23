@@ -89,7 +89,20 @@ namespace ABCRetails.Controllers
                 return NotFound();
             }
             
-            return View(product);
+            // Convert Product into ViewModel
+            var viewModel = new EditProductViewModel
+            {
+                 PartitionKey = product.PartitionKey, 
+                 RowKey = product.RowKey, 
+                 Timestamp = product.Timestamp, 
+                 ETag = product.ETag, 
+                 ProductName = product.ProductName, 
+                 Price = product.Price, 
+                 Description = product.Description, 
+                 PhotoURL = product.PhotoURL
+            };
+            
+            return View(viewModel);
         }
 
         // POST: Products/Edit/
@@ -101,11 +114,11 @@ namespace ABCRetails.Controllers
         (
             string id,
             
-            [Bind("RowKey, PartitionKey, ETag, Timestamp, ProductName, Price, Description, PhotoURL")]
-            Product product
+            [Bind("RowKey, PartitionKey, ETag, Timestamp, ProductName, Price, Description, PhotoURL, ImageFile")]
+            EditProductViewModel viewModel
         )
         {
-            if (id != product.RowKey)
+            if (id != viewModel.RowKey)
             {
                 return NotFound();
             }
@@ -114,6 +127,27 @@ namespace ABCRetails.Controllers
             {
                 try
                 {
+                    // Check if a new photo was uploaded
+                    var photoUrl = viewModel.PhotoURL;
+
+                    if (viewModel.ImageFile != null && viewModel.ImageFile.Length > 0)
+                    {
+                        photoUrl = await _bs.UploadFileAsync(viewModel.ImageFile);
+                    }
+                    
+                    // Convert ViewModel into Product
+                    var product = new Product
+                    {
+                        PartitionKey = viewModel.PartitionKey, 
+                        RowKey = viewModel.RowKey, 
+                        Timestamp = viewModel.Timestamp, 
+                        ETag = viewModel.ETag, 
+                        ProductName = viewModel.ProductName, 
+                        Price = viewModel.Price, 
+                        Description = viewModel.Description, 
+                        PhotoURL = photoUrl
+                    };
+                    
                     await _ts.UpdateEntityAsync<Product>("products", product);
                 }
                 catch (Exception e)
@@ -131,7 +165,7 @@ namespace ABCRetails.Controllers
                 return RedirectToAction(nameof(Index));
             }
             
-            return View(product);
+            return View(viewModel);
         }
         
         // GET: Products/Delete/
