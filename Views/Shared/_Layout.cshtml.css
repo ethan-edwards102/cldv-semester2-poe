@@ -8,13 +8,14 @@ a.navbar-brand {
 }
 
 a {
-  color: #0077cc;
+  color: var(--text-color);
+  font-family: 'League Spartan', sans-serif;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  color: var(--highlight-yellow);
+  background-color: #fff;
+  border-color: var(--border-color);
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {

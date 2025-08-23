@@ -1,50 +1,49 @@
 @model ABCRetails.Models.Customer
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Customer";
 }
 
-<h1>Create</h1>
-
-<h4>Customer</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="CustomerName" class="control-label"></label>
-                <input asp-for="CustomerName" class="form-control" />
-                <span asp-validation-for="CustomerName" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="EmailAddress" class="control-label"></label>
-                <input asp-for="EmailAddress" class="form-control" />
-                <span asp-validation-for="EmailAddress" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="DeliveryAddress" class="control-label"></label>
-                <input asp-for="DeliveryAddress" class="form-control" />
-                <span asp-validation-for="DeliveryAddress" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="border rounded-3 overflow-hidden p-3" tyle="width: 80%; margin: 0 auto;">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Create Customer</h1>
+        <a class="btn btn-primary" asp-action="Index">🡐 Back</a>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">View All</a>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+                <div class="form-group">
+                    <label asp-for="CustomerName" class="control-label"></label>
+                    <input asp-for="CustomerName" class="form-control" />
+                    <span asp-validation-for="CustomerName" class="text-danger"></span>
+                </div>
+            
+                <div class="form-group">
+                    <label asp-for="EmailAddress" class="control-label"></label>
+                    <input asp-for="EmailAddress" class="form-control" />
+                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                </div>
+            
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            
+                <div class="form-group">
+                    <label asp-for="DeliveryAddress" class="control-label"></label>
+                    <input asp-for="DeliveryAddress" class="form-control" />
+                    <span asp-validation-for="DeliveryAddress" class="text-danger"></span>
+                </div>
+            
+                <div class="form-group pt-3">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 

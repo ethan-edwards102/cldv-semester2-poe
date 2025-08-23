@@ -13,9 +13,16 @@ public class Customer : ITableEntity
     public DateTimeOffset? Timestamp { get; set; }
     public ETag ETag { get; set; }
 
-    [Required] public string CustomerName { get; set; }
-    [Required] public string EmailAddress { get; set; }
-    [Required] public string PhoneNumber { get; set; }
-    [Required] public string DeliveryAddress { get; set; }
+    [Required] [Display(Name = "Customer Name")]
+    public string CustomerName { get; set; }
+    
+    [Required] [Display(Name = "Email Address")]
+    public string EmailAddress { get; set; }
+    
+    [Required] [Display(Name = "Phone Number")]
+    public string PhoneNumber { get; set; }
+    
+    [Required] [Display(Name = "Delivery Address")]
+    public string DeliveryAddress { get; set; }
 }
 
