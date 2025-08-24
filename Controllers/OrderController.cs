@@ -9,16 +9,24 @@ namespace ABCRetails.Controllers
     public class OrderController : Controller
     {
         private readonly TableService _ts;
+        private readonly QueueService _qs;
 
-        public OrderController(TableService ts)
+        public OrderController(TableService ts, QueueService qs)
         {
             _ts = ts;
+            _qs = qs;
         }
         
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _ts.ToListAsync<Order>("orders"));
+            var viewModel = new OrderIndexViewModel
+            {
+                Orders = await _ts.ToListAsync<Order>("orders"),
+                OrderMessages = await _qs.PeekMessagesAsync("orders", 10)
+            };
+            
+            return View(viewModel);
         }
         
         // GET: Orders/Details
@@ -91,6 +99,8 @@ namespace ABCRetails.Controllers
                 order.Quantity = viewModel.Quantity;
                 
                 await _ts.InsertEntityAsync("orders", order);
+                await _qs.PushMessageAsync("orders", $"Order created for {order.Quantity} {order.ProductName}(s)");
+                
                 return RedirectToAction(nameof(Index));
             }
             
@@ -299,6 +309,50 @@ namespace ABCRetails.Controllers
             
             ViewData["CustomerRowKey"] = new SelectList(customers, "RowKey", "CustomerName", "");
             ViewData["ProductRowKey"] = new SelectList(products, "RowKey", "ProductName", "");
+        }
+        
+        // POST: Orders/Dispatch
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Dispatch(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _ts.GetEntityAsync<Order>("orders", "ORDER", id);
+            
+            await _qs.PushMessageAsync("orders", $"Order dispatched for {order.Quantity} {order.ProductName}(s)");
+            
+            return RedirectToAction(nameof(Index));
+        }
+        
+        // POST: Orders/MarkAsDelivered
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MarkAsDelivered(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _ts.GetEntityAsync<Order>("orders", "ORDER", id);
+            
+            await _qs.PushMessageAsync("orders", $"Order of {order.Quantity} {order.ProductName}(s) has been delivered");
+            
+            return RedirectToAction(nameof(Index));
+        }
+        
+        // POST: Orders/ClearMessage
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ClearMessage()
+        {
+            await _qs.PopMessageAsync("orders");
+            
+            return RedirectToAction(nameof(Index));
         }
     }
 }

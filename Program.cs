@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<TableService>();
 builder.Services.AddScoped<BlobService>();
+builder.Services.AddScoped<QueueService>();
 
 var app = builder.Build();
 

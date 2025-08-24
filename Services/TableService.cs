@@ -1,5 +1,4 @@
-﻿using ABCRetails.Models;
-using Azure;
+﻿using Azure;
 using Azure.Data.Tables;
 
 namespace ABCRetails.Services;
