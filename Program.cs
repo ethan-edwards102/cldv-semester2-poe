@@ -7,6 +7,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<TableService>();
 builder.Services.AddScoped<BlobService>();
 builder.Services.AddScoped<QueueService>();
+builder.Services.AddScoped<FileService>();
 
 var app = builder.Build();
 

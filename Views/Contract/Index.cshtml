@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ABCRetails.Models.Contract>
+
+@{
+    ViewData["Title"] = "All Contracts";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>All Contracts</h2>
+    
+    <!-- Hidden file input -->
+    <input type="file" id="fileInput" name="file" style="display:none" />
+
+    <!-- Button that triggers file input -->
+    <button type="button" class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+        🡑 Upload
+    </button>
+</div>
+
+<div class="border rounded-3 overflow-hidden">
+    <table class="table m-0">
+        <thead class="table-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            
+            <th>
+                <!-- Item Controls -->
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                
+                <td>
+                    <a class="btn btn-primary" title="Download" asp-action="Download" asp-route-id="@item.Name">🡓</a>
+                    
+                    <form method="post" asp-action="Delete" asp-route-id="@item.Name" style="display:inline" onsubmit="return confirm('Are you sure you want to delete this contract?');">
+                        <button type="submit" class="btn btn-danger" title="Delete">🗑</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<!-- Have the Upload button trigger the file upload dialog and then the Upload POST method -->
+<!-- Cleaner than having a one-field upload page -->
+<script>
+    const fileInput = document.getElementById('fileInput');
+
+    fileInput.addEventListener('change', async () => {
+        if (fileInput.files.length === 0) return;
+
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        try {
+            const response = await fetch('@Url.Action("Upload", "Contract")', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('File uploaded successfully!');
+                // Optionally, refresh the page or update the table dynamically
+                location.reload();
+            } else {
+                alert('Upload failed.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('An error occurred while uploading.');
+        }
+    });
+</script>
